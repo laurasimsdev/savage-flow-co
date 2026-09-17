@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import { getProduct, products } from "@/lib/products";
 import { formatPrice } from "@/lib/format";
 
@@ -25,7 +26,16 @@ export default async function ProductPage({
 
   return (
     <main className="mx-auto grid max-w-5xl flex-1 gap-10 px-6 py-12 md:grid-cols-2">
-      <div className="aspect-square bg-surface-2" />
+      <div className="relative aspect-square overflow-hidden bg-surface-2">
+        <Image
+          src={product.image}
+          alt={product.name}
+          fill
+          sizes="(min-width: 768px) 50vw, 100vw"
+          className="object-cover"
+          priority
+        />
+      </div>
 
       <div>
         <h1 className="text-3xl font-bold tracking-wide text-ink">

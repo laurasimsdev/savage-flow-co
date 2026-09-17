@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Product } from "@/lib/types";
 import { formatPrice } from "@/lib/format";
+import Image from "next/image";
 
 export default function ProductCard({ product }: { product: Product }) {
   const inStock = product.variants.some((v) => v.stock > 0);
@@ -10,7 +11,15 @@ export default function ProductCard({ product }: { product: Product }) {
       href={`/products/${product.slug}`}
       className="group block border border-line transition-colors hover:border-accent"
     >
-      <div className="aspect-square bg-surface-2" />
+      <div className="relative aspect-square overflow-hidden bg-surface-2">
+        <Image
+          src={product.image}
+          alt={product.name}
+          fill
+          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+      </div>
 
       <div className="flex items-baseline justify-between gap-2 p-3">
         <h3 className="font-bold tracking-wide text-ink group-hover:text-accent">
