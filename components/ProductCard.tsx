@@ -8,21 +8,21 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/products/${product.slug}`}
-      className="group block border border-orchid transition-colors hover:border-lime"
+      className="group block border border-line transition-colors hover:border-accent"
     >
-      <div className="aspect-square bg-orchid/30" />
+      <div className="aspect-square bg-surface-2" />
 
       <div className="flex items-baseline justify-between gap-2 p-3">
-        <h3 className="font-bold tracking-wide text-mint group-hover:text-lime">
+        <h3 className="font-bold tracking-wide text-ink group-hover:text-accent">
           {product.name}
         </h3>
-        <span className="shrink-0 text-sm text-ice">
+        <span className="shrink-0 text-sm text-ink-muted">
           {formatPrice(product.price)}
         </span>
       </div>
 
       {!inStock && (
-        <p className="px-3 pb-3 text-xs tracking-widest text-ice/60">
+        <p className="px-3 pb-3 text-xs tracking-widest text-ink-muted/60">
           SOLD OUT
         </p>
       )}
