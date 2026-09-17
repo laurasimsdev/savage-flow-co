@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@theme {
+  --color-mint: #d3f6db;
+  --color-ice: #92d5e6;
+  --color-orchid: #772d8b;
+  --color-plum: #5a0b4d;
+  --color-lime: #a1ef8b;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
