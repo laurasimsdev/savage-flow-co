@@ -51,3 +51,7 @@ export const products: Product[] = [
     ],
   },
 ];
+
+export function getProduct(slug: string): Product | undefined {
+  return products.find((p) => p.slug === slug);
+}
