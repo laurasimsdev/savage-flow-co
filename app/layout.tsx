@@ -60,6 +60,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 border: "1px solid var(--line)",
                 borderRadius: "0",
               },
+              classNames: {
+                description: "!text-[var(--ink)] !opacity-90",
+              },
             }}
           />
         </CartProvider>
