@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { getProduct, products } from "@/lib/products";
 import { formatPrice } from "@/lib/format";
+import AddToCart from "@/components/AddToCart";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -21,7 +22,6 @@ export default async function ProductPage({
 }: PageProps<"/products/[slug]">) {
   const { slug } = await params;
   const product = getProduct(slug);
-  const hasSizes = product.variants.some((v) => v.size !== null);
 
   if (!product) notFound();
 
@@ -45,22 +45,7 @@ export default async function ProductPage({
         <p className="mt-2 text-xl text-accent">{formatPrice(product.price)}</p>
         <p className="mt-6 text-ink-muted">{product.description}</p>
 
-        <h2 className="mt-10 text-xs font-bold tracking-widest text-ink-muted">
-          {hasSizes ? "SIZE" : "AVAILABILITY"}
-        </h2>
-
-        <ul className="mt-3 flex flex-wrap gap-2">
-          {product.variants.map((v) => (
-            <li
-              key={v.id}
-              className={`border border-line px-4 py-2 text-sm ${
-                v.stock > 0 ? "text-ink" : "text-ink-muted/40 line-through"
-              }`}
-            >
-              {v.size ?? (v.stock > 0 ? "In stock" : "Sold out")}
-            </li>
-          ))}
-        </ul>
+        <AddToCart product={product} />
       </div>
     </main>
   );

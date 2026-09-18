@@ -1,7 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import { LogoMark } from "@/components/Logo";
+import { useCart } from "@/components/CartProvider";
 
 export default function Nav() {
+  const { count } = useCart();
+
   return (
     <nav className="sticky top-0 z-10 border-b border-line bg-surface/90 backdrop-blur">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
@@ -23,7 +28,7 @@ export default function Nav() {
             href="/cart"
             className="text-sm font-bold tracking-widest text-accent hover:text-ink"
           >
-            CART (0)
+            CART ({count})
           </Link>
         </div>
       </div>

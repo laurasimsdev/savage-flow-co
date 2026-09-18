@@ -17,3 +17,9 @@ export interface Product {
   image: string;
   variants: Variant[];
 }
+
+export interface CartItem {
+  variantId: string;
+  productId: string;
+  quantity: number;
+}
