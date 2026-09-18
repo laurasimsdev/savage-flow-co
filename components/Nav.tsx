@@ -12,7 +12,13 @@ export default function Nav() {
           </span>
         </Link>
 
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-6">
+          <Link
+            href="/shop"
+            className="text-sm font-bold tracking-widest text-ink hover:text-accent"
+          >
+            SHOP
+          </Link>
           <Link
             href="/cart"
             className="text-sm font-bold tracking-widest text-accent hover:text-ink"

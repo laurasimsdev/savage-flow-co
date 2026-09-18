@@ -21,6 +21,7 @@ export default async function ProductPage({
 }: PageProps<"/products/[slug]">) {
   const { slug } = await params;
   const product = getProduct(slug);
+  const hasSizes = product.variants.some((v) => v.size !== null);
 
   if (!product) notFound();
 
@@ -45,18 +46,16 @@ export default async function ProductPage({
         <p className="mt-6 text-ink-muted">{product.description}</p>
 
         <h2 className="mt-10 text-xs font-bold tracking-widest text-ink-muted">
-          {product.variants[0].size ? "SIZE" : "AVAILABILITY"}
+          {hasSizes ? "SIZE" : "AVAILABILITY"}
         </h2>
 
         <ul className="mt-3 flex flex-wrap gap-2">
           {product.variants.map((v) => (
             <li
               key={v.id}
-              className={
-                v.stock > 0
-                  ? "border border-line px-4 py-2 text-sm text-ink"
-                  : "border border-line px-4 py-2 text-sm text-ink-muted/40 line-through"
-              }
+              className={`border border-line px-4 py-2 text-sm ${
+                v.stock > 0 ? "text-ink" : "text-ink-muted/40 line-through"
+              }`}
             >
               {v.size ?? (v.stock > 0 ? "In stock" : "Sold out")}
             </li>

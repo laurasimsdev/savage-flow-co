@@ -3,7 +3,13 @@ import type { Product } from "@/lib/types";
 import { formatPrice } from "@/lib/format";
 import Image from "next/image";
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({
+  product,
+  priority = false,
+}: {
+  product: Product;
+  priority?: boolean;
+}) {
   const inStock = product.variants.some((v) => v.stock > 0);
 
   return (
