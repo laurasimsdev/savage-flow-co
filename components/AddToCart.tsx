@@ -1,14 +1,32 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { useCart } from "@/components/CartProvider";
 import type { Product } from "@/lib/types";
 
 export default function AddToCart({ product }: { product: Product }) {
   const { add } = useCart();
+  const router = useRouter();
   const available = product.variants.filter((v) => v.stock > 0);
   const [selected, setSelected] = useState(available[0]?.id ?? null);
   const hasSizes = product.variants.some((v) => v.size !== null);
+
+  function handleAdd() {
+    if (!selected) return;
+    const variant = product.variants.find((v) => v.id === selected);
+    add(product.id, selected);
+    toast.success("Added to cart", {
+      description: variant?.size
+        ? `${product.name} — Size ${variant.size}`
+        : product.name,
+      action: {
+        label: "View cart",
+        onClick: () => router.push("/cart"),
+      },
+    });
+  }
 
   if (available.length === 0) {
     return (
@@ -48,7 +66,7 @@ export default function AddToCart({ product }: { product: Product }) {
       )}
 
       <button
-        onClick={() => selected && add(product.id, selected)}
+        onClick={handleAdd}
         className="mt-6 w-full border border-accent px-8 py-3 text-sm font-bold tracking-widest text-accent transition-colors hover:bg-accent hover:text-surface"
       >
         ADD TO CART

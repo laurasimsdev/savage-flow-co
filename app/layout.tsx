@@ -4,6 +4,7 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { CartProvider } from "@/components/CartProvider";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -50,6 +51,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Nav />
           {children}
           <Footer />
+          <Toaster
+            position="bottom-right"
+            toastOptions={{
+              style: {
+                background: "var(--surface-2)",
+                color: "var(--ink)",
+                border: "1px solid var(--line)",
+                borderRadius: "0",
+              },
+            }}
+          />
         </CartProvider>
       </body>
     </html>

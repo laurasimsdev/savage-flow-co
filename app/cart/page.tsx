@@ -6,9 +6,11 @@ import { useCart } from "@/components/CartProvider";
 import { products } from "@/lib/products";
 import { formatPrice } from "@/lib/format";
 import { Minus, Plus, X } from "lucide-react";
+import { useRef } from "react";
 
 export default function CartPage() {
   const { items, remove, setQuantity, clear } = useCart();
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   const lines = items.flatMap((item) => {
     const product = products.find((p) => p.id === item.productId);
@@ -127,7 +129,10 @@ export default function CartPage() {
         Shipping and tax calculated at checkout.
       </p>
 
-      <button className="mt-8 w-full border border-accent px-8 py-3.5 text-sm font-bold tracking-widest text-accent transition-colors hover:bg-accent hover:text-surface">
+      <button
+        onClick={() => dialogRef.current?.showModal()}
+        className="mt-8 w-full border border-accent px-8 py-3.5 text-sm font-bold tracking-widest text-accent transition-colors hover:bg-accent hover:text-surface"
+      >
         CHECKOUT
       </button>
 
@@ -137,6 +142,28 @@ export default function CartPage() {
       >
         CLEAR CART
       </button>
+
+      <dialog
+        ref={dialogRef}
+        onClick={(e) => {
+          if (e.target === dialogRef.current) dialogRef.current.close();
+        }}
+        className="m-auto max-w-sm border border-line bg-surface p-8 text-center backdrop:bg-black/60"
+      >
+        <h2 className="text-xl font-bold tracking-wide text-ink">
+          Checkout isn&apos;t open yet
+        </h2>
+        <p className="mt-3 text-sm text-ink-muted">
+          Savage Flow is still building. Your cart will be waiting when the
+          store opens.
+        </p>
+        <button
+          onClick={() => dialogRef.current?.close()}
+          className="mt-6 w-full border border-accent px-6 py-2.5 text-sm font-bold tracking-widest text-accent transition-colors hover:bg-accent hover:text-surface"
+        >
+          GOT IT
+        </button>
+      </dialog>
     </main>
   );
 }
